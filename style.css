@@ -1,0 +1,246 @@
+/* ===== 変数 ===== */
+:root {
+  --cream: #faf7f2;
+  --warm-white: #f5f0e8;
+  --koji-brown: #8b6f47;
+  --koji-dark: #5c4a32;
+  --koji-light: #c4a882;
+  --koji-pale: #ede0cc;
+  --accent: #c17f3d;
+  --text: #3a2e22;
+  --text-light: #7a6a56;
+  --border: #ddd0bc;
+  --success: #6a8f6a;
+  --shadow: rgba(91, 68, 40, 0.12);
+}
+
+/* ===== リセット ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ===== ヘッダー ===== */
+header {
+  background: var(--koji-dark);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.logo {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--koji-pale);
+  letter-spacing: 0.05em;
+}
+.logo span {
+  display: block;
+  font-size: 10px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--koji-light);
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+}
+.api-key-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.api-key-area input {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(196,168,130,0.4);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #fff;
+  font-size: 12px;
+  width: 240px;
+  outline: none;
+}
+.api-key-area input::placeholder { color: rgba(255,255,255,0.4); }
+.api-key-area input:focus { border-color: var(--koji-light); }
+.api-key-area button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: background 0.2s;
+}
+.api-key-area button:hover { background: var(--koji-brown); }
+#keyStatus { font-size: 11px; color: #a8d5a8; }
+
+/* ===== メイン ===== */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+/* ===== ステップナビ ===== */
+.step-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.step-btn {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: all 0.2s;
+  text-align: center;
+  min-width: 110px;
+}
+.step-btn:hover { border-color: var(--koji-brown); background: var(--warm-white); }
+.step-btn.active { background: var(--koji-dark); border-color: var(--koji-dark); color: #fff; }
+.step-num {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  margin-bottom: 2px;
+}
+.step-btn.active .step-num { color: var(--koji-light); }
+.step-label { font-size: 13px; font-weight: 500; }
+.step-arrow { color: var(--koji-light); font-size: 16px; padding: 0 2px; }
+
+/* ===== パネル ===== */
+.panel { display: none; }
+.panel.active { display: block; }
+.panel-header { margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid var(--koji-pale); }
+.panel-header h2 { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 500; color: var(--koji-dark); margin-bottom: 6px; }
+.panel-desc { font-size: 13px; color: var(--text-light); }
+
+/* ===== フォーム ===== */
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--koji-dark); margin-bottom: 6px; }
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--koji-brown); }
+.form-group textarea { min-height: 80px; }
+
+/* ===== 実行ボタン ===== */
+.run-btn {
+  background: var(--koji-dark);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 32px;
+  font-size: 15px;
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  margin-bottom: 24px;
+}
+.run-btn:hover { background: var(--koji-brown); }
+.run-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+/* ===== 結果エリア ===== */
+.result-area {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  min-height: 80px;
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text);
+  display: none;
+  position: relative;
+}
+.result-area.visible { display: block; }
+.result-area .copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: all 0.2s;
+}
+.result-area .copy-btn:hover { background: var(--koji-pale); color: var(--koji-dark); }
+
+/* ローディング */
+.loading { display: flex; align-items: center; gap: 10px; color: var(--text-light); font-size: 13px; }
+.loading-dots span {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--koji-light);
+  margin: 0 2px;
+  animation: bounce 1.2s infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+
+/* ===== 台本チャット ===== */
+.script-chat { background: var(--warm-white); border: 1.5px solid var(--border); border-radius: 12px; margin-bottom: 24px; overflow: hidden; }
+.chat-messages { padding: 20px; max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+.chat-msg { padding: 12px 16px; border-radius: 10px; font-size: 13px; line-height: 1.8; white-space: pre-wrap; max-width: 90%; }
+.chat-msg.assistant { background: #fff; border: 1px solid var(--border); align-self: flex-start; }
+.chat-msg.user { background: var(--koji-dark); color: #fff; align-self: flex-end; }
+.chat-input-area { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); background: #fff; }
+.chat-input-area textarea { flex: 1; border: 1.5px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 13px; font-family: 'Noto Sans JP', sans-serif; resize: none; outline: none; color: var(--text); }
+.chat-input-area textarea:focus { border-color: var(--koji-brown); }
+.chat-send-btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-family: 'Noto Sans JP', sans-serif; cursor: pointer; transition: background 0.2s; white-space: nowrap; align-self: flex-end; }
+.chat-send-btn:hover { background: var(--koji-brown); }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 600px) {
+  .step-nav { gap: 6px; }
+  .step-btn { min-width: 80px; padding: 8px 10px; }
+  .step-label { font-size: 11px; }
+  .run-btn { width: 100%; }
+  .api-key-area input { width: 180px; }
+}
