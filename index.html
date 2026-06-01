@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>たおやか麹lab｜インスタ運用エージェント</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">たおやか麹lab<span>インスタ運用エージェント</span></div>
+      <div class="api-key-area">
+        <input type="password" id="apiKey" placeholder="Anthropic APIキーを入力" />
+        <button id="saveKey">保存</button>
+        <span id="keyStatus"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <nav class="step-nav">
+      <button class="step-btn active" data-step="research">
+        <span class="step-num">STEP 1</span>
+        <span class="step-label">リサーチ</span>
+      </button>
+      <div class="step-arrow">→</div>
+      <button class="step-btn" data-step="plan">
+        <span class="step-num">STEP 2</span>
+        <span class="step-label">企画・台本</span>
+      </button>
+      <div class="step-arrow">→</div>
+      <button class="step-btn" data-step="schedule">
+        <span class="step-num">STEP 3</span>
+        <span class="step-label">スケジュール</span>
+      </button>
+      <div class="step-arrow">→</div>
+      <button class="step-btn" data-step="engagement">
+        <span class="step-num">STEP 4</span>
+        <span class="step-label">返信文案</span>
+      </button>
+    </nav>
+
+    <section class="panel active" id="panel-research">
+      <div class="panel-header">
+        <h2>STEP 1｜リサーチエージェント</h2>
+        <p class="panel-desc">トレンド・競合・季節ネタを調べて、今週の企画の軸を決めます</p>
+      </div>
+      <div class="form-group">
+        <label>調べたいキーワード</label>
+        <input type="text" id="researchKeyword" placeholder="例：塩麹　夏　トレンド" />
+      </div>
+      <div class="form-group">
+        <label>季節・時期</label>
+        <input type="text" id="researchSeason" placeholder="例：初夏・6月" />
+      </div>
+      <button class="run-btn" id="runResearch">リサーチ開始</button>
+      <div class="result-area" id="researchResult"></div>
+    </section>
+
+    <section class="panel" id="panel-plan">
+      <div class="panel-header">
+        <h2>STEP 2｜企画・台本エージェント</h2>
+        <p class="panel-desc">リサーチ結果をもとに、投稿企画案と30秒リール台本を生成します</p>
+      </div>
+      <div class="form-group">
+        <label>今週のテーマ・麹の種類</label>
+        <input type="text" id="planTheme" placeholder="例：生姜麹　夏バテ対策" />
+      </div>
+      <div class="form-group">
+        <label>投稿目的</label>
+        <select id="planGoal">
+          <option value="認知拡大">認知拡大（新規フォロワー獲得）</option>
+          <option value="保存・シェア">保存・シェア（バズ狙い）</option>
+          <option value="信頼構築">信頼構築（専門性アピール）</option>
+          <option value="ゆらぎ世代共感">ゆらぎ世代への共感訴求</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>レシピ（任意）</label>
+        <textarea id="planRecipe" placeholder="材料と作り方をここに貼り付けてください。入力するとレシピに忠実な台本を生成します" rows="5"></textarea>
+      </div>
+      <div class="form-group">
+        <label>リサーチ結果（任意・STEP1の結果を貼り付け）</label>
+        <textarea id="planResearchRef" placeholder="STEP1の結果をここにコピーして活用できます" rows="3"></textarea>
+      </div>
+      <button class="run-btn" id="runPlan">企画・台本を生成</button>
+      <div id="scriptChat" class="script-chat" style="display:none;">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-area">
+          <textarea id="chatInput" placeholder="台本への追加指示（例：フックをもっと強くして）&#10;Shift+Enterで改行、ボタンで送信" rows="2"></textarea>
+          <button class="chat-send-btn" id="chatSend">送信</button>
+        </div>
+      </div>
+      <div class="result-area" id="planResult"></div>
+    </section>
+
+    <section class="panel" id="panel-schedule">
+      <div class="panel-header">
+        <h2>STEP 3｜スケジュールエージェント</h2>
+        <p class="panel-desc">投稿頻度と企画案をもとに、最適な月間カレンダーを作成します</p>
+      </div>
+      <div class="form-group">
+        <label>週の投稿本数</label>
+        <select id="scheduleFreq">
+          <option value="週1本">週1本</option>
+          <option value="週2本">週2本</option>
+          <option value="週3本" selected>週3本</option>
+          <option value="週4〜5本">週4〜5本</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>企画案リスト（STEP2の結果を貼り付けてください）</label>
+        <textarea id="schedulePlan" placeholder="STEP2で生成した企画案をここにコピーしてください" rows="5"></textarea>
+      </div>
+      <button class="run-btn" id="runSchedule">スケジュール生成</button>
+      <div class="result-area" id="scheduleResult"></div>
+    </section>
+
+    <section class="panel" id="panel-engagement">
+      <div class="panel-header">
+        <h2>STEP 4｜エンゲージメントエージェント</h2>
+        <p class="panel-desc">受け取ったコメント・DMへの返信文案を3パターン生成します</p>
+      </div>
+      <div class="form-group">
+        <label>受け取ったコメント・DM</label>
+        <textarea id="engagementMsg" placeholder="例：先日の塩麹の動画、早速作ってみました！とっても美味しくできて感動しました😊" rows="4"></textarea>
+      </div>
+      <button class="run-btn" id="runEngagement">返信文案を生成</button>
+      <div class="result-area" id="engagementResult"></div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
